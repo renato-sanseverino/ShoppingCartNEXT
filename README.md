@@ -1,2 +1,2 @@
 # ShoppingCartNEXT
-Carrinho de compras utilizando NEXT js
+Carrinho de compras em NEXT.js
