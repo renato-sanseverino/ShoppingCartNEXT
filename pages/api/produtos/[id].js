@@ -16,9 +16,11 @@ export default async function handler(req, res) {
 }
 
 const getProduct = async (req, res) => {
-	const { id } = req.query;
+	const { id } = req.params || req.query;
 
-	// prisma.produto.findUnique
+	prisma.produto.findUnique({ where: { id: Number(id) } })
+	.then((produto) => res.send(produto))
+	.catch((error) => res.send("Error: " + error.message))
 }
 
 const deleteProduct = async (req, res) => {

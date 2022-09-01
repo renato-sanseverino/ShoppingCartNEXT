@@ -1,6 +1,8 @@
+import { useRouter } from "next/router";
 import { useState, useEffect } from 'react';
 import styles from '../styles/Home.module.css';
 import { Button, Drawer, Dialog } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import { ProductForm } from '../componentes/ProductForm';
@@ -43,7 +45,7 @@ export default function Home() {
         <header>
           <div id="container"></div>
           <ShoppingCart style={{color: 'blue'}} onClick={toggle}></ShoppingCart>
-          <Button variant="outlined" startIcon={<AddCircleIcon />} onClick={openForm} >Don´t</Button>
+          <Button variant="outlined" startIcon={<EditIcon />} onClick={openForm} >Don´t</Button>
           <Dialog open={open} onClose={closeForm} >
                 <ProductForm dialogRef={{ closeForm }} />
           </Dialog>
