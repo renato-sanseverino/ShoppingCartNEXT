@@ -25,11 +25,11 @@ export const ProductForm = ({dialogRef}) => {
 
 		try {
 			if (!router.query.id) {
-				await axios.post("/api/products", {
+				await axios.post("/api/produtos", {
 					...product,
 				});
 			} else {
-				await axios.put("/api/products/" + router.query.id, {
+				await axios.put("/api/produtos/" + router.query.id, {
 					...product,
 				});
 			}
@@ -40,7 +40,7 @@ export const ProductForm = ({dialogRef}) => {
 
 		router.push("/");
 		toast.success('Produto salvo com sucesso', notification.options);
-		dialogRef.toggle();
+		dialogRef.closeForm();
 	};
 
 	const onChange = (e) => {
@@ -52,7 +52,7 @@ export const ProductForm = ({dialogRef}) => {
 
 	useEffect(() => {
 		const getProduct = async (id) => {
-			const { data: product } = await axios.get("/api/products/" + id);
+			const { data: product } = await axios.get("/api/produtos/" + id);
 			setProduct(product);
 		};
 
