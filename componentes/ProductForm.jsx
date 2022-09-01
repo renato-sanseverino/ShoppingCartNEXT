@@ -2,35 +2,24 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { notification } from "../config/notification";
 
 
-export const ProductForm = () => {
+export const ProductForm = ({dialogRef}) => {
+	const router = useRouter();
+
 	const [product, setProduct] = useState({
 		nome: "",
 		preco: "",
 		descricao: "",
 		foto: "",
-	});
-
-	const router = useRouter();
-
-	const notify = (message) => {
-		toast.error(message, {
-			position: "bottom-right",
-			autoClose: 5000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-		});
-	};
+	})
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		if (product.nome === "" || product.preco === "" || product.descricao === "") {
-			notify("Favor preencher todos os campos!");
+			toast.error('Favor preencher todos os campos!', notification.options);
 			return;
 		}
 
@@ -45,13 +34,13 @@ export const ProductForm = () => {
 				});
 			}
 		} catch (error) {
-			notify(error.message);
-
+			toast.error(error.message, notification.options);
 			return;
 		}
 
 		router.push("/");
-		toast.success('Produto salvo com sucesso');
+		toast.success('Produto salvo com sucesso', notification.options);
+		dialogRef.toggle();
 	};
 
 	const onChange = (e) => {
@@ -104,23 +93,26 @@ export const ProductForm = () => {
 					<label htmlFor="descricao" className="block text-gray-700 text-sm font-bold md-2">
 						Descrição
 					</label>
-					<textarea
+					<input type="text"
 						name="descricao"
 						value={product.descricao}
 						className="shadow appearance  border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-						onChange={onChange} >
-					</textarea>
+						onChange={onChange}
+					/>
 				</div>
 				<div className="mb-4">
 					<label htmlFor="foto" className="block text-gray-700 text-sm font-bold md-2">
 						Foto
 					</label>
-					<input type="text"						
-						name="foto"
-						value={product.foto}
-						className="shadow appearance  border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-						onChange={onChange}
-					/>
+					<div className="bg-gray-400 flex flex-row">
+						<textarea
+							name="foto"
+							value={product.foto}
+							className="min-w-fit resize-x border rounded text-gray-700"
+							onChange={onChange} >
+						</textarea>
+						<img className="w-48" src={"data:" + product.formatoImagem + ", " + product.foto} alt={product.nome}></img>
+					</div>
 				</div>
 				<button type="submit" className="bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded focus:outline-none focus:shadow-outline text-white font-bold">
 					Salvar
