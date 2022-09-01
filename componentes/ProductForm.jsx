@@ -119,5 +119,5 @@ export const ProductForm = ({dialogRef}) => {
 				</button>
 			</form>
 		</div>
-	);
-};
+	)
+}
