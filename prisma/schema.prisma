@@ -3,17 +3,17 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "sqlserver"
   url      = env("DATABASE_URL")
 }
 
 model categoria {
-  id   Int    @id @unique(map: "id_UNIQUE")
+  id   Int    @id @default(autoincrement())
   nome String @db.VarChar(120)
 }
 
 model fornecedor {
-  id    Int     @id @unique(map: "idfornecedor_UNIQUE")
+  id    Int     @id @default(autoincrement())
   cnpj  String  @db.VarChar(45)
   nome  String  @db.VarChar(250)
   email String? @db.VarChar(120)
@@ -26,13 +26,13 @@ model produto {
   categoria     Int?
   fornecedor    Int?
   descricao     String?   @db.VarChar(255)
-  foto          String?   @db.LongText
+  foto          String?   @db.Text
   formatoImagem String?   @db.VarChar(45)
-  dataCriacao   DateTime? @default(now()) @db.Timestamp(0)
+  dataCriacao   DateTime? @default(now())
 }
 
 model unidademedida {
-  id        Int     @id @unique(map: "id_UNIQUE")
+  id        Int     @id @default(autoincrement())
   descricao String  @db.VarChar(65)
   sigla     String? @db.VarChar(10)
 }
