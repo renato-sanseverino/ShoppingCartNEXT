@@ -1,9 +1,8 @@
-import { useRouter } from "next/router";
+import Draggable from 'react-draggable';
 import { useState, useEffect } from 'react';
 import styles from '../styles/Home.module.css';
 import { Button, Drawer, Dialog } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import { ProductForm } from '../componentes/ProductForm';
 import { CartItemList } from '../componentes/CartItemList';
@@ -46,9 +45,11 @@ export default function Home() {
           <div id="container"></div>
           <ShoppingCart style={{color: 'blue'}} onClick={toggle}></ShoppingCart>
           <Button variant="outlined" startIcon={<EditIcon />} onClick={openForm} >Don´t</Button>
-          <Dialog open={open} onClose={closeForm} >
-                <ProductForm dialogRef={{ closeForm }} />
-          </Dialog>
+          <Draggable>
+            <Dialog open={open} onClose={closeForm} BackdropProps={{ style: { backgroundColor: "transparent" } }} >
+                  <ProductForm dialogRef={{ closeForm }} />
+            </Dialog>
+          </Draggable>
           <Drawer open={show} anchor={'right'} onClose={toggle}>
             <h4 className='p-8 text-2xl font-bold' >Carrinho { carrinho && carrinho.cliente }</h4>
             <CartItemList carrinho={carrinho}></CartItemList>
