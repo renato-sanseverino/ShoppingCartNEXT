@@ -38,15 +38,23 @@ export const ProductForm = ({dialogRef}) => {
 			return;
 		}
 
+		console.log(product);
 		router.push("/");
 		toast.success('Produto salvo com sucesso', notification.options);
 		dialogRef.closeForm();
 	};
 
 	const onChange = (e) => {
+		const getContent = (e) => {
+			if (e.target.type === 'file')
+				return e.target.files[0].name;
+
+			return e.target.value;
+		}
+
 		setProduct({
 			...product,
-			[e.target.name]: e.target.value,
+			[e.target.name]: getContent(e),
 		});
 	};
 
@@ -105,12 +113,7 @@ export const ProductForm = ({dialogRef}) => {
 						Foto
 					</label>
 					<div className="bg-gray-400 flex flex-row">
-						<textarea
-							name="foto"
-							value={product.foto}
-							className="min-w-fit resize-x border rounded text-gray-700"
-							onChange={onChange} >
-						</textarea>
+						<input type="file" name="foto" onChange={onChange} />
 						<img className="w-48" src={"data:" + product.formatoImagem + ", " + product.foto} alt={product.nome}></img>
 					</div>
 				</div>
