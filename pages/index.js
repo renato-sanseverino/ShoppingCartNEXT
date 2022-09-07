@@ -13,7 +13,7 @@ export default function Home() {
   const [dadosProdutos, setDadosProdutos] = useState();
   const [carrinho, setCarrinho] = useState();
 
-  const getDadosProdutos = async () => {
+  const getCatalogo = async () => {
     const response = await fetch("api/produtos")
     .then((response) => response.json());
 
@@ -28,7 +28,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    getDadosProdutos();
+    getCatalogo();
     getCarrinho();
   }, []);
 
@@ -47,7 +47,7 @@ export default function Home() {
           <Button variant="outlined" startIcon={<EditIcon />} onClick={openForm} >Don´t</Button>
           <Draggable>
             <Dialog open={open} onClose={closeForm} BackdropProps={{ style: { backgroundColor: "transparent" } }} >
-                  <ProductForm dialogRef={{ closeForm }} />
+                  <ProductForm dialogRef={{ closeForm, getCatalogo }} />
             </Dialog>
           </Draggable>
           <Drawer open={show} anchor={'right'} onClose={toggle}>
