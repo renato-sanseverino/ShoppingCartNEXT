@@ -38,7 +38,6 @@ export const ProductForm = ({dialogRef}) => {
 			return;
 		}
 
-		console.log(product);
 		router.push("/");
 		toast.success('Produto salvo com sucesso', notification.options);
 		dialogRef.closeForm();
@@ -46,8 +45,19 @@ export const ProductForm = ({dialogRef}) => {
 
 	const onChange = (e) => {
 		const getContent = (e) => {
-			if (e.target.type === 'file')
-				return e.target.files[0].name;
+			if (e.target.type === 'file') {
+				const file = e.target.files[0];
+				// Reads the file using the FileReader API
+				const reader = new FileReader();
+				reader.onloadend = () => {
+					const fileData = reader.result.split(';base64,');
+					let formato = fileData[0].replace('data:', '') + ';base64'
+					let arquivo = fileData[1]
+					console.log(formato)
+					console.log(arquivo)
+				}
+				reader.readAsDataURL(file);
+			}
 
 			return e.target.value;
 		}
