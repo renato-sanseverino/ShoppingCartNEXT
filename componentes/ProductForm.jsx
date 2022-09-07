@@ -13,6 +13,7 @@ export const ProductForm = ({dialogRef}) => {
 		preco: "",
 		descricao: "",
 		foto: "",
+		formatoImagem: "",
 	})
 
 	const handleSubmit = async (e) => {
@@ -44,28 +45,20 @@ export const ProductForm = ({dialogRef}) => {
 	};
 
 	const onChange = (e) => {
-		const getContent = (e) => {
-			if (e.target.type === 'file') {
-				const file = e.target.files[0];
-				// Reads the file using the FileReader API
-				const reader = new FileReader();
-				reader.onloadend = () => {
-					const fileData = reader.result.split(';base64,');
-					let formato = fileData[0].replace('data:', '') + ';base64'
-					let arquivo = fileData[1]
-					console.log(formato)
-					console.log(arquivo)
-				}
-				reader.readAsDataURL(file);
-			}
 
-			return e.target.value;
+		if (e.target.type === 'file') {
+			const file = e.target.files[0];
+			// Reads the file using the FileReader API
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				const fileData = reader.result.split(';base64,');
+				let formato = fileData[0].replace('data:', '') + ';base64'
+				setProduct({...product, 'foto': fileData[1], 'formatoImagem': formato, })
+			}
+			reader.readAsDataURL(file);
 		}
 
-		setProduct({
-			...product,
-			[e.target.name]: getContent(e),
-		});
+		setProduct({...product, [e.target.name]: e.target.value, })
 	};
 
 	useEffect(() => {
