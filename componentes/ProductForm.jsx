@@ -115,9 +115,9 @@ export const ProductForm = ({dialogRef}) => {
 					<label htmlFor="foto" className="block text-gray-700 text-sm font-bold md-2">
 						Foto
 					</label>
-					<div className="bg-gray-400 flex flex-row">
+					<div className="bg-gray-400 flex flex-col w-60">
 						<input type="file" name="foto" onChange={onChange} />
-						<img className="w-48" src={"data:" + product.formatoImagem + ", " + product.foto} alt={product.nome}></img>
+						<img className="w-full" src={"data:" + product.formatoImagem + ", " + product.foto} alt={product.nome}></img>
 					</div>
 				</div>
 				<button type="submit" className="bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded focus:outline-none focus:shadow-outline text-white font-bold">
