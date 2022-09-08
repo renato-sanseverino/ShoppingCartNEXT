@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlserver"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -26,7 +26,7 @@ model produto {
   categoria     Int?
   fornecedor    Int?
   descricao     String?   @db.VarChar(255)
-  foto          String?   @db.Text
+  foto          String?   @db.LongText
   formatoImagem String?   @db.VarChar(45)
   dataCriacao   DateTime? @default(now())
 }
