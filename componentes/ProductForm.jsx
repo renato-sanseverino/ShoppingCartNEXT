@@ -5,7 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { notification } from "../config/notification";
 
 
-export const ProductForm = ({ dialogRef }) => {
+export const ProductForm = ({ parentRef }) => {
 	const router = useRouter();
 
 	const [product, setProduct] = useState({
@@ -41,9 +41,9 @@ export const ProductForm = ({ dialogRef }) => {
 
 		router.push("/");
 		toast.success('Produto salvo com sucesso', notification.options);
-		dialogRef.closeForm();
-		dialogRef.getCatalogo(); // faz o referesh do catalogo de produtos
-	};
+		parentRef.closeForm();
+		parentRef.getCatalogo(); // faz o referesh do catalogo de produtos
+	}
 
 	const onChange = (e) => {
 

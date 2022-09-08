@@ -47,7 +47,7 @@ export default function Home() {
           <Button variant="outlined" startIcon={<EditIcon />} onClick={openForm} >Don´t</Button>
           <Draggable>
             <Dialog open={open} onClose={closeForm} BackdropProps={{ style: { backgroundColor: "transparent" } }} >
-                  <ProductForm dialogRef={{ closeForm, getCatalogo }} />
+                  <ProductForm parentRef={{ closeForm, getCatalogo }} />
             </Dialog>
           </Draggable>
           <Drawer open={show} anchor={'right'} onClose={toggle}>
