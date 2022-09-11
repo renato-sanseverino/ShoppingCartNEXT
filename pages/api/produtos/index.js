@@ -12,8 +12,9 @@ export default async function handler(req, res) {
 	}
 }
 
+// TODO -  limitar o upload de arquivo somente aos tipos  .gif, .jpg, .png
 const saveProduct = async (req, res) => {
-	// const { nome, preco, descricao, foto } = req.body;
+	// const { nome, preco, descricao, foto, formatoImagem } = req.body;
 
 	prisma.produto.create({ data: req.body })
 	.then((result) => res.send(result))
